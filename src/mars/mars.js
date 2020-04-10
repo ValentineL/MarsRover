@@ -1,5 +1,6 @@
 import React from "react";
 import Rover from "../rover/rover";
+import './mars.scss'
 
 const MOVE_VECTOR = {
     S: [0, -1],

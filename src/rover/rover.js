@@ -1,4 +1,5 @@
 import React from "react";
+import './rover.scss'
 
 class Rover extends React.Component {
     render() {
