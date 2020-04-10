@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rover should render Rover component 1`] = `
+<span
+  className="rover undefined ghost "
+>
+  🛦
+</span>
+`;
+
+exports[`Rover should render Rover component 2`] = `
+<span
+  className="rover undefined  "
+>
+  🛦
+</span>
+`;

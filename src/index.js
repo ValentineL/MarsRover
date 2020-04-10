@@ -1,7 +1,7 @@
 import React from "react";
-import {render} from "react-dom";
-import "./index.css";
-import Mars from "./mars";
+import { render } from "react-dom";
+import "./index.scss";
+import Mars from "./mars/mars";
 
 class App extends React.Component {
 
@@ -50,20 +50,12 @@ class App extends React.Component {
         e.target.checkValidity();
     };
 
-    stopExecute = () => {
-        this.setState({
-            execute: false
-        });
-    };
-
     render() {
         let position = this.state.startPosition || '00N';
         position = position.split('').join(' ');
         return (
             <div className={'app'}>
-                <h1 className={'app-name'}>Mars Rover in JavaScript / React</h1>
-                <a className={'source'} href={'https://github.com/vraa/marsrover'}
-                   title={'Source code for Mars Rover in JavaScript / React'}>Source</a>
+                <h1 className={'app-name'}>Mars Rover</h1>
                 <div className={`control-panel`}>
                     <div className={'start-position'}>
                         <label
@@ -72,15 +64,15 @@ class App extends React.Component {
                             Start Position (Eg; 00N):
                         </label>
                         <input type="text"
-                               id="startPosition"
-                               maxLength={3}
-                               required
-                               pattern={'^[0-4][0-4][NEWS]$'}
-                               defaultValue={'00N'}
-                               onBlur={this.validateStartPosition}
-                               ref={(elm) => {
-                                   this.startInput = elm
-                               }}
+                            id="startPosition"
+                            maxLength={3}
+                            required
+                            pattern={'^[0-4][0-4][NEWS]$'}
+                            defaultValue={'00N'}
+                            onBlur={this.validateStartPosition}
+                            ref={(elm) => {
+                                this.startInput = elm
+                            }}
                         />
                     </div>
                     <div className='commands'>
@@ -90,7 +82,7 @@ class App extends React.Component {
                     </div>
                     <div className='execution'>
                         <button onClick={this.clear} className='secondary'>✖</button>
-                        <input type="text" readOnly value={this.state.commands}/>
+                        <input type="text" readOnly value={this.state.commands} />
                         <button className={'cta'} onClick={this.execute}>Execute</button>
                     </div>
                     <div className='samples'>
@@ -110,11 +102,10 @@ class App extends React.Component {
                     position={position}
                     commands={this.state.commandsToExecute}
                     execute={this.state.execute}
-                    onDone={this.stopExecute}
                 />
             </div>
         )
     }
 }
 
-render(<App/>, document.getElementById("root"));
+render(<App />, document.getElementById("root"));

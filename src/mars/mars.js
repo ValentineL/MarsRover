@@ -1,5 +1,5 @@
 import React from "react";
-import Rover from "./rover";
+import Rover from "../rover/rover";
 
 const MOVE_VECTOR = {
     S: [0, -1],
@@ -53,11 +53,12 @@ class Mars extends React.Component {
     };
 
     process = (props) => {
-        const {commands, position} = props;
+        const { commands, position } = props;
         if (commands === '') {
             this.setState(this.initialState);
         } else {
             const parts = position.split(" ");
+
             this.setState(
                 {
                     start: parts[0] + "-" + parts[1],
@@ -75,17 +76,17 @@ class Mars extends React.Component {
 
     execute = (commands) => {
         let ops = (commands || "").split("");
-        this.setState({ops}, () => {
-            setTimeout(this.run.bind(this), 500);
-        });
+        this.setState({ ops }, () => this.run());
     };
 
     run = () => {
         let ops = this.state.ops.slice();
-        let {position, path, facing} = this.state;
+        let { position, path, facing } = this.state;
         path = path || {};
+        
         path[position] = facing;
         let op = ops.shift();
+        
         let newPosition = {};
         if (op === "L") {
             newPosition = this.turnRoverLeft();
@@ -116,14 +117,15 @@ class Mars extends React.Component {
     };
 
     moveRoverForward = () => {
-        const {size} = this.props;
-        const {position, facing} = this.state;
+        const { size } = this.props;
+        const { position, facing } = this.state;
+
         const moveVector = MOVE_VECTOR[facing];
         const pos = position.split('-').map(Number);
         const x = pos[0] + moveVector[0];
         const y = pos[1] + moveVector[1];
         if (x < 0 || x >= size || y < 0 || y >= size) {
-            return {error: true};
+            return { error: true };
         }
         return {
             position: x + '-' + y
@@ -131,14 +133,14 @@ class Mars extends React.Component {
     };
 
     turnRoverLeft = () => {
-        const {facing} = this.state;
+        const { facing } = this.state;
         return ({
             facing: LEFT_TURNS_MAP[facing]
         });
     };
 
     turnRoverRight = () => {
-        const {facing} = this.state;
+        const { facing } = this.state;
         return ({
             facing: RIGHT_TURNS_MAP[facing]
         });
@@ -146,8 +148,9 @@ class Mars extends React.Component {
 
     render() {
 
-        const {size} = this.props;
-        let {position, facing, path} = this.state;
+        const { size } = this.props;
+        let { position, facing, path } = this.state;
+
         path = path || {};
         let cells = [];
         for (let i = size - 1; i >= 0; i--) {
@@ -174,9 +177,9 @@ class Mars extends React.Component {
                     }
 
                     if (position === cell) {
-                        roverElm = <Rover facing={facing}/>;
+                        roverElm = <Rover facing={facing} />;
                     } else {
-                        roverPath = (path[cell] ? <Rover facing={path[cell]} ghost={true}/> : null);
+                        roverPath = (path[cell] ? <Rover facing={path[cell]} ghost={true} /> : null);
                     }
 
                     return (
