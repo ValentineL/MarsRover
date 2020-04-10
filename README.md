@@ -37,3 +37,14 @@ MMRMMRMRRM
 Expected Output:
 1 3 N
 5 1 E
+
+## Instructions
+
+Execute the application "npm run start"
+
+Execute tests "npm run test"
+
+Update test snapshots "npm run update:snapshots"
+
+See code coverage "npm run test:coverage"
+
